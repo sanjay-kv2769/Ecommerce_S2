@@ -1,3 +1,11 @@
+// import express from 'express';
+// import productSchema from '../models/productSchema.mjs'; // Update the file extension
+// import multer from 'multer';
+// import cloudinary from 'cloudinary';
+// import { CloudinaryStorage } from 'multer-storage-cloudinary';
+// import dotenv from 'dotenv';
+// const productRoute = express.Router();
+
 const express = require('express');
 const productSchema = require('../models/productSchema');
 const productRoute = express.Router();

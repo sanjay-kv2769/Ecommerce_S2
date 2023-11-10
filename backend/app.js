@@ -1,3 +1,11 @@
+// import express from 'express';
+// import mongoose from 'mongoose';
+// import productRoute from './routes/ProductRoutes';
+// import cors from 'cors';
+// import dotenv from 'dotenv';
+
+// dotenv.config();
+
 const express = require('express');
 const { default: mongoose } = require('mongoose');
 const productRoute = require('./routes/ProductRoutes');
