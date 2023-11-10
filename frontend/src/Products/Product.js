@@ -13,7 +13,8 @@ function Product() {
 
     setLoading(true);
     axios
-      .get('http://localhost:8080/api/products/viewProduct')
+      .get('https://ecommerce-s2.onrender.com/api/products/viewProduct')
+      //   .get('http://localhost:8080/api/products/viewProduct')
       .then((response) => {
         setProducts(response.data.data);
         console.log(response);

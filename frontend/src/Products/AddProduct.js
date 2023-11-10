@@ -25,7 +25,11 @@ const AddProduct = () => {
     formData.append('price', product.price);
     // event.preventDefault();
     axios
-      .post('http://localhost:8080/api/products/addProduct', formData)
+      .post(
+        'https://ecommerce-s2.onrender.com/api/products/addProduct',
+        formData
+      )
+      //   .post('http://localhost:8080/api/products/addProduct', formData)
       .then(() => {
         event.preventDefault();
         console.log('Data Added');
