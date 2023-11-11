@@ -28,29 +28,36 @@ const storage = new CloudinaryStorage({
 });
 const upload = multer({ storage: storage });
 
-productRoute.post('/addProduct', upload.single('image'), (req, res) => {
-  const Data = new productSchema({
-    name: req.body.name,
-    price: req.body.price,
-    image: req.file ? req.file.path : null,
-    // image: req.file ? req.file.filename : null,
-  });
-  Data.save()
-    .then((data) => {
-      res.status(201).json({
+productRoute.post('/addProduct', upload.single('image'), async (req, res) => {
+  try {
+    const Data = {
+      name: req.body.name,
+      price: req.body.price,
+      image: req.file ? req.file.path : null,
+    };
+    const data = await productSchema(Data).save();
+    if (data) {
+      return res.status(201).json({
         Success: true,
         Error: false,
         Message: 'Data added successfully',
         data: data,
       });
-    })
-    .catch((error) => {
-      res.status(400).json({
-        Success: false,
+    } else {
+      return res.status(400).json({
         Error: true,
-        ErrorMessage: error,
+        Success: false,
+        Message: 'Error, Data no added',
       });
+    }
+  } catch (error) {
+    return res.status(400).json({
+      Error: true,
+      Success: false,
+      Message: 'Internal server error',
+      ErrorMessage: error,
     });
+  }
 });
 
 productRoute.get('/viewProduct', (req, res) => {
