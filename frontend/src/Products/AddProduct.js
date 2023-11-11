@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const AddProduct = () => {
   const [product, setProduct] = useState({});
   const inputChange = (event) => {
@@ -33,7 +35,10 @@ const AddProduct = () => {
       .then(() => {
         event.preventDefault();
         console.log('Data Added');
-        navigate('/products');
+        toast('Product Added');
+        setTimeout(() => {
+          navigate('/products');
+        }, 2000);
       })
       .catch((error) => {
         console.log(error);
@@ -42,6 +47,17 @@ const AddProduct = () => {
 
   return (
     <div className="p-4">
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <h1 className="text-3xl my-4">Add Employee</h1>
       {/* {loading ? <Spinner /> : ''} */}
 

@@ -3,7 +3,8 @@ import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import { Button, Spinner } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-
+import PacmanLoader from 'react-spinners/PacmanLoader';
+import PulseLoader from 'react-spinners/PulseLoader';
 function Product() {
   // console.log(user);
   const [products, setProducts] = useState([]);
@@ -28,16 +29,7 @@ function Product() {
   return (
     <>
       {/* {user == null && loading ? ( */}
-      {loading ? (
-        <>
-          <div className="flex justify-center content-center mt-5 ">
-            <Spinner />
-          </div>
-          <div className="font-bold text-center text-xl">
-            You have to login First
-          </div>
-        </>
-      ) : (
+      {products.length !== 0 ? (
         <>
           <div className="container-fluid">
             <div className="row">
@@ -73,6 +65,20 @@ function Product() {
             </div>
           </div>
         </>
+      ) : (
+        <div className='spinner-container'>
+          <div className="spinner">
+            {/* <PacmanLoader color="#36d7b7" /> */}
+            <PulseLoader
+              color="#1e217d"
+              cssOverride={{}}
+              loading
+              margin={0}
+              size={30}
+              speedMultiplier={1}
+            />
+          </div>
+        </div>
       )}
     </>
   );
