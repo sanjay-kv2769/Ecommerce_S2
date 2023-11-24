@@ -13,6 +13,7 @@ const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 // npm i express multer cloudinary multer-storage-cloudinary
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const CheckAuth = require('../middlewares/CheckAuth');
 require('dotenv').config();
 
 cloudinary.config({
@@ -79,7 +80,7 @@ productRoute.get('/viewProduct', (req, res) => {
     });
 });
 
-productRoute.get('/view-employee/:id', (req, res) => {
+productRoute.get('/view-product/:id', (req, res) => {
   productSchema
     .findOne({
       _id: req.params.id,

@@ -7,23 +7,26 @@ import PacmanLoader from 'react-spinners/PacmanLoader';
 import PulseLoader from 'react-spinners/PulseLoader';
 function Product() {
   // console.log(user);
+  const token = sessionStorage.getItem('token');
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setLoading(true);
-
-    setLoading(true);
+    // if (token !== null) {
     axios
-      .get('https://ecommerce-s2.onrender.com/api/products/viewProduct')
-      //   .get('http://localhost:8080/api/products/viewProduct')
+      //   .get('https://ecommerce-s2.onrender.com/api/products/viewProduct', {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   })
+      .get('http://localhost:8080/api/products/viewProduct', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         setProducts(response.data.data);
         console.log(response);
-
-        // console.log(response.data);
-        // console.log(employees);
       });
-    setLoading(false);
+    // }
   }, []);
 
   return (
@@ -66,7 +69,7 @@ function Product() {
           </div>
         </>
       ) : (
-        <div className='spinner-container'>
+        <div className="spinner-container">
           <div className="spinner">
             {/* <PacmanLoader color="#36d7b7" /> */}
             <PulseLoader
