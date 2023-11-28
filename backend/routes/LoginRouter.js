@@ -63,6 +63,7 @@ LoginRouter.post('/', async (req, res) => {
       Success: false,
       Error: true,
       Message: 'Internal Server Error',
+      Message: error.message,
     });
   }
 });

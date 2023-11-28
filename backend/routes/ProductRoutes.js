@@ -10,8 +10,8 @@ const express = require('express');
 const productSchema = require('../models/productSchema');
 const productRoute = express.Router();
 const multer = require('multer');
+// npm i cloudinary multer-storage-cloudinary
 const cloudinary = require('cloudinary').v2;
-// npm i express multer cloudinary multer-storage-cloudinary
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const CheckAuth = require('../middlewares/CheckAuth');
 require('dotenv').config();
