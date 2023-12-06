@@ -3,6 +3,8 @@ const loginSchema = require('../models/loginSchema');
 const LoginRouter = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
+const RegisterData = require('../models/registerSchema');
 require('dotenv').config();
 
 LoginRouter.post('/login', async (req, res) => {
@@ -70,52 +72,53 @@ LoginRouter.post('/login', async (req, res) => {
 
 // flutter test
 LoginRouter.get('/profile/:id', (req, res) => {
-  console.log(req.userData);
-  loginSchema
-    .aggregate([
-      {
-        $lookup: {
-          from: 'login_tbs',
-          localField: 'login_id',
-          foreignField: '_id',
-          as: 'result',
+  // console.log(req.userData);
+  const id = req.params.id;
+  console.log(id);
+  RegisterData.aggregate([
+    {
+      $lookup: {
+        from: 'login_tbs',
+        localField: 'login_id',
+        foreignField: '_id',
+        as: 'result',
+      },
+    },
+    {
+      $unwind: {
+        path: '$result',
+      },
+    },
+    {
+      $match: { login_id: new mongoose.Types.ObjectId(id) },
+    },
+    {
+      $group: {
+        _id: '$_id',
+        name: {
+          $first: '$name',
+        },
+        phone: {
+          $first: '$phone',
+        },
+        email: {
+          $first: '$email',
+        },
+        username: {
+          $first: '$result.username',
+        },
+        password: {
+          $first: '$result.password',
         },
       },
-      {
-        $unwind: {
-          path: '$result',
-        },
-      },
-      {
-        $match: { _id: new mongoose.Types.ObjectId(req.params.id) },
-      },
-
-      {
-        $group: {
-          _id: '$_id',
-          name: {
-            $first: '$name',
-          },
-          phone: {
-            $first: '$phone',
-          },
-          email: {
-            $first: '$email',
-          },
-          username: {
-            $first: '$result.username',
-          },
-          password: {
-            $first: '$result.password',
-          },
-        },
-      },
-    ])
+    },
+  ])
     .then((data) => {
+      console.log(data);
       return res.status(200).json({
         success: true,
         error: false,
-        data: data[0], // data
+        data: data, // data
       });
     })
     .catch((err) => console.log(err));
