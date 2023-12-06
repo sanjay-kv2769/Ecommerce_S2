@@ -23,7 +23,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/products', productRoute);
 app.use('/api/register', RegisterRouter);
-app.use('/api/login', LoginRouter);
+// app.use('/api/login', LoginRouter);
+app.use('/api', LoginRouter);
 
 app.get('/', (req, res) => {
   res.send('Server is working fine');

@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-LoginRouter.post('/', async (req, res) => {
+LoginRouter.post('/login', async (req, res) => {
   try {
     if (req.body.username && req.body.password) {
       const oldUser = await loginSchema.findOne({
