@@ -63,9 +63,62 @@ LoginRouter.post('/', async (req, res) => {
       Success: false,
       Error: true,
       Message: 'Internal Server Error',
-      Message: error.message,
+      ErrorMessage: error.message,
     });
   }
+});
+
+// flutter test
+LoginRouter.get('/profile/:id', (req, res) => {
+  console.log(req.userData);
+  loginSchema
+    .aggregate([
+      {
+        $lookup: {
+          from: 'login_tbs',
+          localField: 'login_id',
+          foreignField: '_id',
+          as: 'result',
+        },
+      },
+      {
+        $unwind: {
+          path: '$result',
+        },
+      },
+      {
+        $match: { _id: new mongoose.Types.ObjectId(req.params.id) },
+      },
+
+      {
+        $group: {
+          _id: '$_id',
+          name: {
+            $first: '$name',
+          },
+          phone: {
+            $first: '$phone',
+          },
+          email: {
+            $first: '$email',
+          },
+          username: {
+            $first: '$result.username',
+          },
+          password: {
+            $first: '$result.password',
+          },
+        },
+      },
+    ])
+    .then((data) => {
+      return res.status(200).json({
+        success: true,
+        error: false,
+        data: data[0], // data
+      });
+    })
+    .catch((err) => console.log(err));
 });
 
 module.exports = LoginRouter;

@@ -9,8 +9,8 @@
 const express = require('express');
 const productSchema = require('../models/productSchema');
 const productRoute = express.Router();
-const multer = require('multer');
 // npm i cloudinary multer-storage-cloudinary
+const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const CheckAuth = require('../middlewares/CheckAuth');
