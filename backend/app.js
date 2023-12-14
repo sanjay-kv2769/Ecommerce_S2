@@ -5,6 +5,7 @@ const app = express();
 const cors = require('cors');
 const RegisterRouter = require('./routes/RegisterRoute');
 const LoginRouter = require('./routes/LoginRouter');
+const TrainerRoute = require('./routes/TrainerRouter');
 require('dotenv').config();
 
 mongoose
@@ -22,6 +23,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/products', productRoute);
+app.use('/api/trainers', TrainerRoute);
 app.use('/api/register', RegisterRouter);
 // app.use('/api/login', LoginRouter);
 app.use('/api', LoginRouter);
