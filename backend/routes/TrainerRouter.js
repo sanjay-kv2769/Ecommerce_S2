@@ -34,12 +34,13 @@ TrainerRoute.post('/addtrainer', upload.single('image'), async (req, res) => {
     };
     const data = await TrainerDB(Data).save();
     if (data) {
-      return res.status(201).json({
-        Success: true,
-        Error: false,
-        Message: 'Data added successfully',
-        data: data,
-      });
+      // return res.status(201).json({
+      //   Success: true,
+      //   Error: false,
+      //   Message: 'Data added successfully',
+      //   data: data,
+      // });
+      res.send(data);
     } else {
       return res.status(400).json({
         Error: true,
@@ -60,11 +61,12 @@ TrainerRoute.post('/addtrainer', upload.single('image'), async (req, res) => {
 TrainerRoute.get('/viewtrainers', (req, res) => {
   TrainerDB.find()
     .then((data) => {
-      res.status(200).json({
-        Success: true,
-        Error: false,
-        data: data,
-      });
+      // res.status(200).json({
+      //   Success: true,
+      //   Error: false,
+      //   data: data,
+      // });
+      res.send(data);
     })
     .catch((error) => {
       res.status(400).json({
@@ -82,11 +84,12 @@ TrainerRoute.get('/view-trainer/:id', (req, res) => {
     .then((data) => {
       // res.send(data);
 
-      return res.status(200).json({
-        success: true,
-        error: false,
-        data: data,
-      });
+      // return res.status(200).json({
+      //   success: true,
+      //   error: false,
+      //   data: data,
+      // });
+      res.send(data);
     })
     .catch((err) => console.log(err));
 });
@@ -103,12 +106,13 @@ TrainerRoute.put('/update-trainer/:id', upload.single('image'), (req, res) => {
         data
           .save()
           .then((data) => {
-            return res.status(200).json({
-              success: true,
-              error: false,
-              data: data,
-              message: 'updated successfully',
-            });
+            // return res.status(200).json({
+            //   success: true,
+            //   error: false,
+            //   data: data,
+            //   message: 'updated successfully',
+            // });
+            res.send(data);
           })
           .catch((err) => {
             return res.status(400).json({
