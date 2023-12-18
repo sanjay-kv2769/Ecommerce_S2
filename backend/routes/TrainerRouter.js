@@ -133,7 +133,7 @@ TrainerRoute.put('/update-trainer/:id', upload.single('image'), (req, res) => {
 });
 
 //  delete employee
-TrainerRoute.delete('/delete-product/:id', (req, res) => {
+TrainerRoute.delete('/delete-trainer/:id', (req, res) => {
   TrainerDB.deleteOne({
     id: req.params.id,
   })
